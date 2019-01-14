@@ -35,10 +35,19 @@ class _PostListState extends State<_PostList> {
 
   @override
   Widget build(BuildContext context) {
-    fetchPosts();
-    return ListView(
-      children: <Widget>[Text('1'), Text('2'), Text('3')],
-    );
+    return FutureBuilder<List<RedditPost>>(
+      future: fetchPosts(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return ListView(
+            children: snapshot.data.map((data) => Text(data.title)).toList(),
+          );
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+        return CircularProgressIndicator();
+      },
+    )
   }
 
   Future<List<RedditPost>> fetchPosts() async {
@@ -46,7 +55,7 @@ class _PostListState extends State<_PostList> {
 
     if (response.statusCode == 200) {
       RedditResponse redditResponse =
-          RedditResponse.fromJson(json.decode(response.body));
+      RedditResponse.fromJson(json.decode(response.body));
       List<RedditPost> redditPosts = redditResponse.data.children
           .map((childData) => childData.post)
           .toList();
