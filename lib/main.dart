@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:reddit_app_flutter/model/RedditResponse.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,10 +35,24 @@ class _PostListState extends State<_PostList> {
 
   @override
   Widget build(BuildContext context) {
+    fetchPosts();
     return ListView(
       children: <Widget>[Text('1'), Text('2'), Text('3')],
     );
   }
 
-  void loadPosts() {}
+  Future<List<RedditPost>> fetchPosts() async {
+    final response = await http.get('http://reddit.com/hot.json');
+
+    if (response.statusCode == 200) {
+      RedditResponse redditResponse =
+          RedditResponse.fromJson(json.decode(response.body));
+      List<RedditPost> redditPosts = redditResponse.data.children
+          .map((childData) => childData.post)
+          .toList();
+      return redditPosts;
+    } else {
+      throw Exception('Failed to load posts');
+    }
+  }
 }
