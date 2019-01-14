@@ -31,12 +31,18 @@ class _PostList extends StatefulWidget {
 }
 
 class _PostListState extends State<_PostList> {
-//  final _posts = <String>[];
+  Future _posts;
+
+  @override
+  void initState() {
+    super.initState();
+    _posts = fetchPosts();
+  }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<RedditPost>>(
-      future: fetchPosts(),
+      future: _posts,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView(
