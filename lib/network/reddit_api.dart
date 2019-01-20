@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:reddit_app_flutter/model/reddit_models.dart';
+import 'package:reddit_app_flutter/model/reddit_post.dart';
 import 'package:http/http.dart' as http;
 
 class RedditApi {

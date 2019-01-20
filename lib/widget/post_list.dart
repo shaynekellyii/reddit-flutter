@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:reddit_app_flutter/model/reddit_models.dart';
+import 'package:reddit_app_flutter/model/reddit_post.dart';
 import 'package:reddit_app_flutter/network/reddit_api.dart';
 import 'package:reddit_app_flutter/widget/post_item.dart';
 
@@ -30,13 +30,17 @@ class PostListState extends State<PostList> {
               return new PostItem(post: snapshot.data[index]);
             },
             separatorBuilder: (context, index) => Divider(
-              color: Colors.grey,
-            ),
+                  color: Colors.grey,
+                  height: 1.0,
+                ),
           );
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
-        return CircularProgressIndicator();
+        return Container(
+          alignment: Alignment(0.0, 0.0),
+          child: CircularProgressIndicator(),
+        );
       },
     );
   }

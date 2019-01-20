@@ -1,3 +1,5 @@
+import 'package:reddit_app_flutter/model/post_type.dart';
+
 class RedditResponse {
   final RedditData data;
 
@@ -37,9 +39,26 @@ class RedditPost {
   final String title;
   final String url;
   final String author;
+  final int score;
+  final int numComments;
+  final double createdUtc;
+  final String postHint;
+  final bool isSelf;
+  final String thumbnail;
 
-  RedditPost(
-      {this.subreddit, this.selftext, this.title, this.url, this.author});
+  RedditPost({
+    this.subreddit,
+    this.selftext,
+    this.title,
+    this.url,
+    this.author,
+    this.score,
+    this.numComments,
+    this.createdUtc,
+    this.postHint,
+    this.isSelf,
+    this.thumbnail,
+  });
 
   factory RedditPost.fromJson(Map<String, dynamic> json) {
     return RedditPost(
@@ -48,6 +67,18 @@ class RedditPost {
       title: json['title'],
       url: json['url'],
       author: json['author'],
+      score: json['score'],
+      numComments: json['num_comments'],
+      createdUtc: json['created_utc'],
+      postHint: json['post_hint'],
+      isSelf: json['is_self'],
+      thumbnail: json['thumbnail'],
     );
+  }
+
+  PostType getPostType() {
+    if (isSelf) return PostType.SELF;
+    if (postHint == 'image') return PostType.IMAGE;
+    else return PostType.LINK;
   }
 }
