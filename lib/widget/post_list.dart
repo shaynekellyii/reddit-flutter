@@ -38,7 +38,10 @@ class PostListState extends State<PostList> {
           return Text("${snapshot.error}");
         }
         return Container(
-          alignment: Alignment(0.0, 0.0),
+          alignment: Alignment(
+            0.0,
+            0.0,
+          ),
           child: CircularProgressIndicator(),
         );
       },
