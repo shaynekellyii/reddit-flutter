@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reddit_app_flutter/widget/screen/post_screen.dart';
 import 'package:reddit_app_flutter/widget/screen/subreddit_screen.dart';
 
 void main() => runApp(MyApp());
@@ -15,9 +16,13 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.grey,
         fontFamily: 'Montserrat',
       ),
-      home: SubredditScreen(
-        title: _title,
-      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => SubredditScreen(
+              title: _title,
+            ),
+        '/post': (context) => PostScreen(),
+      },
     );
   }
 }

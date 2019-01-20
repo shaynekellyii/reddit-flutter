@@ -27,11 +27,18 @@ class PostListState extends State<PostList> {
           return ListView.separated(
             itemCount: snapshot.data.length,
             itemBuilder: (context, index) {
-              return new PostItem(post: snapshot.data[index]);
+              return GestureDetector(
+                child: Container(
+                  child: PostItem(
+                    post: snapshot.data[index],
+                  ),
+                ),
+                onTap: () => Navigator.pushNamed(context, '/post'),
+              );
             },
             separatorBuilder: (context, index) => Divider(
                   color: Colors.grey,
-                  height: 1.0,
+                  height: 0.0,
                 ),
           );
         } else if (snapshot.hasError) {
