@@ -24,9 +24,14 @@ class PostListState extends State<PostList> {
       future: _posts,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return ListView(
-            children:
-                snapshot.data.map((data) => PostItem(post: data)).toList(),
+          return ListView.separated(
+            itemCount: snapshot.data.length,
+            itemBuilder: (context, index) {
+              return new PostItem(post: snapshot.data[index]);
+            },
+            separatorBuilder: (context, index) => Divider(
+              color: Colors.grey,
+            ),
           );
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
