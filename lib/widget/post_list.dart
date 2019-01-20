@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:reddit_app_flutter/model/reddit_post.dart';
 import 'package:reddit_app_flutter/network/reddit_api.dart';
 import 'package:reddit_app_flutter/widget/post_item.dart';
+import 'package:reddit_app_flutter/widget/screen/post_screen.dart';
 
 class PostList extends StatefulWidget {
   @override
@@ -33,7 +34,14 @@ class PostListState extends State<PostList> {
                     post: snapshot.data[index],
                   ),
                 ),
-                onTap: () => Navigator.pushNamed(context, '/post'),
+                onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PostScreen(
+                              post: snapshot.data[index],
+                            ),
+                      ),
+                    ),
               );
             },
             separatorBuilder: (context, index) => Divider(
