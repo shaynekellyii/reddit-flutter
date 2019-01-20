@@ -4,6 +4,7 @@ import 'package:reddit_app_flutter/model/post_type.dart';
 import 'package:reddit_app_flutter/model/reddit_post.dart';
 import 'package:reddit_app_flutter/util/constants.dart';
 import 'package:reddit_app_flutter/util/extensions.dart';
+import 'package:reddit_app_flutter/widget/base/empty.dart';
 import 'package:reddit_app_flutter/widget/base/text_with_icon.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -63,18 +64,20 @@ class PostItem extends StatelessWidget {
             child: CachedNetworkImage(
               imageUrl: post.url,
               placeholder: Container(
+                height: 160.0,
+                width: double.infinity,
                 alignment: Alignment(0.0, 0.0),
-                child: CircularProgressIndicator(),
+                color: Colors.grey[200],
+                child: Icon(
+                  Icons.image,
+                ),
               ),
               width: double.infinity,
               height: 160.0,
               fit: BoxFit.fitWidth,
             ),
           )
-        : Container(
-            width: 0.0,
-            height: 0.0,
-          );
+        : Empty();
   }
 }
 
